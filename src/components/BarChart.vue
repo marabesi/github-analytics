@@ -108,6 +108,11 @@ export default {
           return x(date)
         })
         .attr("y", () => y(0))
+        .append('title')
+        .text(d => {
+          const date = this.parseDate(d.commit.committer.date) 
+          return `${domainTotaByDate[date].length} commit(s)`
+        })
 
       this.svg.append("text")
         .attr("transform", "rotate(-90)")
