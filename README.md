@@ -1,4 +1,8 @@
-# github-repo-visualization
+# Github stats dashboard
+
+![Activity](activity.png)
+
+![Details](details.png)
 
 ## Project setup
 ```

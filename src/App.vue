@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <div class="repo">
+    <div :class="[{'empty': options.data.length === 0}, 'repo']">
       <input
         type="text"
         placeholder="Github Repo - :owner/:repo eg: marabesi/testable"
         class="repo__input"
-        @change="loadData"
         v-model="repo"
       />
       <button
-        v-show="repo"
+        v-show="repo.length"
         @click="loadData"
         class="repo__load"
       >
@@ -93,11 +92,6 @@ export default {
     BarChart,
     BubbleChart,
     WordCloud
-  },
-  computed: {
-    repo() {
-      return this.$router.params.repo
-    }
   },
   data: () => ({
     repo: '',
@@ -245,6 +239,12 @@ export default {
 }
 .repo .repo__input {
   width: 100%;
+}
+.empty {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 200px);
+  width: 400px;
 }
 .repo .repo__load {
   margin-left: 10px;
