@@ -13,13 +13,20 @@
 export default {
   name: 'InputText',
   data: () => ({
-    repo: ''
+    repo: '',
+    searched: ''
   }),
   methods: {
     loadData() {
       if (!this.repo || !this.repo.includes('/')) {
         return
       }
+
+      if (this.repo === this.searched) {
+        return
+      }
+
+      this.searched = this.repo
 
       this.$emit('onSearch', this.repo)
     }

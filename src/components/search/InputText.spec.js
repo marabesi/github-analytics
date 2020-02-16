@@ -47,4 +47,22 @@ describe('InputText', () => {
 
     expect(wrapper.emitted().onSearch).toBeFalsy()
   })
+
+  test('should not fire event if the text has not changed', () => {
+    const wrapper = mount(InputText)
+    const inputText = wrapper.find('input')
+
+    inputText.setValue(VALID_SEARCH_STRING)
+
+    wrapper.find('form').trigger('submit')
+
+    expect(wrapper.emitted().onSearch).toEqual([[VALID_SEARCH_STRING]])
+
+    // refs https://github.com/vuejs/vue-test-utils/issues/1252
+    wrapper._emitted['onSearch'] = null
+
+    wrapper.find('form').trigger('submit')
+
+    expect(wrapper.emitted().onSearch).toBeFalsy()
+  })
 })

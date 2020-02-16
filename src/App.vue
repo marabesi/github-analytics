@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="!loading" :class="[{'empty': options.data.length === 0}, 'repo']">
+    <div v-show="!loading" :class="[{'empty': options.data.length === 0}, 'repo']">
       <InputText @onSearch="loadData" />
     </div>
 
@@ -85,6 +85,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    repo: '',
     by: [
       { value: BY_DAY, label: 'day' },
       { value: BY_WEEK, label: 'week' },
@@ -107,6 +108,7 @@ export default {
   }),
   methods: {
     loadData(repo) {
+      this.repo = repo
       if (this.loading) {
         return
       }
@@ -117,7 +119,11 @@ export default {
         this.fetchData(url.replace('{report}', 'commits')),
         this.fetchStackStats(url.replace('{report}', 'languages')),
         this.fetchTopics(url.replace('{report}', 'topics'))
-      ]).finally(() => this.loading = false)
+      ])
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => this.loading = false)
     },
     rangeUpdated(event) {
       this.options.by = parseInt(event.target.value)
