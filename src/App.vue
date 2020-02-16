@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div :class="[{'empty': options.data.length === 0}, 'repo']">
+    <div v-if="!loading" :class="[{'empty': options.data.length === 0}, 'repo']">
       <input
         type="text"
         placeholder="Github Repo - :owner/:repo eg: marabesi/testable"
@@ -25,7 +25,7 @@
           <ul class="authors__list">
             <li v-for="author in authors" :key="author.login">
                 <label v-if="author.login">
-                  <ImageWrapper :src="author.avatar_url" width="60" />
+                  <ImageWrapper :src="author.avatar_url" :width="60" />
                   <p>
                       {{ author.login }}
                       <input type="checkbox" name="author" :checked="filters.includes(author.login)" :value="author.login" />
@@ -75,7 +75,7 @@
 
 <script>
 import _ from 'lodash'
-import ImageWrapper from '@/components/ImageWrapper.vue'
+import ImageWrapper from '@/components/image/ImageWrapper.vue'
 import BarChart from '@/components/BarChart.vue'
 import BubbleChart from '@/components/BubbleChart.vue'
 import WordCloud from '@/components/WordCloud.vue'
@@ -94,6 +94,7 @@ export default {
     WordCloud
   },
   data: () => ({
+    loading: false,
     repo: '',
     by: [
       { value: BY_DAY, label: 'day' },
@@ -117,16 +118,23 @@ export default {
   }),
   methods: {
     loadData() {
+      if (this.loading) {
+        return
+      }
+
+      this.loading = true
       const url = `https://api.github.com/repos/${this.repo}/{report}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
-      this.fetchData(url.replace('{report}', 'commits'))
-      this.fetchStackStats(url.replace('{report}', 'languages'))
-      this.fetchTopics(url.replace('{report}', 'topics'))
+      Promise.all([
+        this.fetchData(url.replace('{report}', 'commits')),
+        this.fetchStackStats(url.replace('{report}', 'languages')),
+        this.fetchTopics(url.replace('{report}', 'topics'))
+      ]).finally(() => this.loading = false)
     },
     rangeUpdated(event) {
       this.options.by = parseInt(event.target.value)
     },
     fetchStackStats(url) {
-      fetch(url).then(response => response.json())
+      return fetch(url).then(response => response.json())
         .then(data => {
           const langs = []
           let total = 0
@@ -145,7 +153,7 @@ export default {
     fetchTopics(url) {
       const headers = new Headers()
       headers.append('Accept', 'application/vnd.github.mercy-preview+json')
-      fetch(url, { headers }).then(response => response.json())
+      return fetch(url, { headers }).then(response => response.json())
         .then(data => {
           this.topics = data.names.map(text => {
             return {
@@ -156,7 +164,7 @@ export default {
     },
     fetchData(url) {
         const requests = []
-        fetch(url)
+        return fetch(url)
           .then( response => {
               const headers = response.headers.values()
               for(let test of headers) {
