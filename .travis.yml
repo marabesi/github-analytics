@@ -9,6 +9,7 @@ before_script:
 
 script:
   - yarn build
+  - yarn test
   - sh deploy.sh
 
 env:
