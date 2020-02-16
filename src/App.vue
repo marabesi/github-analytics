@@ -1,19 +1,7 @@
 <template>
   <div id="app">
     <div v-if="!loading" :class="[{'empty': options.data.length === 0}, 'repo']">
-      <input
-        type="text"
-        placeholder="Github Repo - :owner/:repo eg: marabesi/testable"
-        class="repo__input"
-        v-model="repo"
-      />
-      <button
-        v-show="repo.length"
-        @click="loadData"
-        class="repo__load"
-      >
-        Load
-      </button>
+      <InputText @onSearch="loadData" />
     </div>
 
     <h2 v-show="options.data.length">{{ repo }}</h2>
@@ -76,6 +64,7 @@
 <script>
 import _ from 'lodash'
 import ImageWrapper from '@/components/image/ImageWrapper.vue'
+import InputText from '@/components/search/InputText.vue'
 import BarChart from '@/components/BarChart.vue'
 import BubbleChart from '@/components/BubbleChart.vue'
 import WordCloud from '@/components/WordCloud.vue'
@@ -89,13 +78,13 @@ export default {
   name: 'app',
   components: {
     ImageWrapper,
+    InputText,
     BarChart,
     BubbleChart,
     WordCloud
   },
   data: () => ({
     loading: false,
-    repo: '',
     by: [
       { value: BY_DAY, label: 'day' },
       { value: BY_WEEK, label: 'week' },
@@ -117,13 +106,13 @@ export default {
     filters: []
   }),
   methods: {
-    loadData() {
+    loadData(repo) {
       if (this.loading) {
         return
       }
 
       this.loading = true
-      const url = `https://api.github.com/repos/${this.repo}/{report}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+      const url = `https://api.github.com/repos/${repo}/{report}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
       Promise.all([
         this.fetchData(url.replace('{report}', 'commits')),
         this.fetchStackStats(url.replace('{report}', 'languages')),
@@ -239,22 +228,10 @@ export default {
 .authors .authors__list li {
   margin-right: 10px;
 }
-.repo {
-  display: flex;
-}
-.repo .repo__load, .repo .repo__input {
-  padding: 10px;
-}
-.repo .repo__input {
-  width: 100%;
-}
 .empty {
   position: absolute;
   top: calc(50% - 50px);
   left: calc(50% - 200px);
   width: 400px;
-}
-.repo .repo__load {
-  margin-left: 10px;
 }
 </style>
