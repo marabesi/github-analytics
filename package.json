@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.6",
     "core-js": "^2.6.11",
     "d3": "^6.6.0",
     "d3-cloud": "^1.2.5",
