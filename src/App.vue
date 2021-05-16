@@ -120,9 +120,6 @@ export default {
         this.fetchStackStats(url.replace('{report}', 'languages')),
         this.fetchTopics(url.replace('{report}', 'topics'))
       ])
-      .catch(error => {
-        console.log(error)
-      })
       .finally(() => this.loading = false)
     },
     rangeUpdated(event) {
