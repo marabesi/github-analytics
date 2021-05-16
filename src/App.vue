@@ -4,9 +4,9 @@
       <InputText @onSearch="loadData" />
     </div>
 
-    <h2 v-show="options.data.length">{{ repo }}</h2>
+    <h1 v-if="options.data.length">{{ repo }}</h1>
 
-    <div v-show="options.data.length">
+    <div v-if="options.data.length">
       <div class="row">
         <div class="authors">
           <h2>Authors ({{ authors.length }})</h2>
