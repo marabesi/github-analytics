@@ -18,7 +18,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "vue": "^2.6.12",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",
