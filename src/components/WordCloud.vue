@@ -37,6 +37,9 @@ export default {
       this.setUp()
     }
   },
+  mounted() {
+    this.setUp()
+  },
   methods: {
     setUp() {
       this.layout = cloud()

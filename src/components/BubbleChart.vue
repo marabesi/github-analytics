@@ -43,6 +43,9 @@ export default {
       this.draw()
     }
   },
+  mounted() {
+    this.draw()
+  },
   methods: {
     draw() {
       d3.select("#bubble").select('*').remove()

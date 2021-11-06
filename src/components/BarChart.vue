@@ -28,6 +28,9 @@ export default {
       required: true
     }
   },
+  mounted() {
+    this.draw()
+  },
   computed: {
     margin() {
       return {top: 10, right: 30, bottom: 90, left: 40}
