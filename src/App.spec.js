@@ -15,8 +15,4 @@ describe('<App />', () => {
     const title = wrapper.findAll('h1').length
     expect(title).toBeFalsy()
   })
-
-  test('load github repo data', () => {
-    const wrapper = mount(App)
-  })
 })

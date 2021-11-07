@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="loading" class="loading">Loading...</span>
-    <img v-if="!loading" :src="blob" :width="width" />
+    <img data-testid="image" v-if="!loading" :src="blob" :width="width" />
   </div>
 </template>
 <script>
