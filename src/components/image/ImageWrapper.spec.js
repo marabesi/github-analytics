@@ -1,9 +1,19 @@
+require('jest-fetch-mock').enableMocks()
 import { mount } from '@vue/test-utils'
 import ImageWrapper from './ImageWrapper.vue'
 
 const src = 'http://www.my.com/ggg.png'
 
 describe('ImageWrapper component', () => {
+  beforeEach(() => {
+    global.URL.createObjectURL = jest.fn();
+    fetchMock.doMock()
+  })
+
+  afterEach(() => {
+  fetchMock.dontMock()
+  })
+
   test('should show up loading placeholder', () => {
     const wrapper = mount(ImageWrapper, {
       propsData: {
