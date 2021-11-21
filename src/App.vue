@@ -18,6 +18,7 @@
                   {{ author.login }}
                   <input
                       type="checkbox"
+                      :data-testid="author.login"
                       name="author"
                       :checked="filters.includes(author.login)"
                       :value="author.login"

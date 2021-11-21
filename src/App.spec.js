@@ -89,6 +89,7 @@ describe('<App />', () => {
 
       await waitFor(()=> expect(queryByTestId(option)).not.toBeChecked())
     })
+
     test('renders number of commits by year (YYYY): 2019', async () => {
       const { getByText, getByPlaceholderText, queryByText, queryByTestId, getByTestId } = render(App)
 
@@ -150,6 +151,28 @@ describe('<App />', () => {
       await fireEvent.click(getByTestId('week'))
 
       await waitFor(()=> expect(queryByText(day)).toBeInTheDocument())
+    })
+  })
+
+  describe('authors', () => {
+    test('renders author name', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('marabesi')).toBeInTheDocument())
+    })
+
+    test('should display author commits by default', async () => {
+      const { getByText, getByPlaceholderText, queryByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByTestId('marabesi')).toBeChecked())
     })
   })
 })
