@@ -2,7 +2,6 @@ import {fireEvent, render, waitFor} from '@testing-library/vue'
 import App from './App'
 
 describe('<App />', () => {
-
   test('Display input text when loading is false', () => {
     const { getByPlaceholderText } = render(App)
     expect(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable')).toBeTruthy();
@@ -47,6 +46,30 @@ describe('<App />', () => {
       await fireEvent.click(getByText('Load'))
 
       await waitFor(()=> expect(queryByText(option)).toBeInTheDocument())
+    })
+
+    test('by default month should be selected', async () => {
+      const { getByText, getByPlaceholderText, queryByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByTestId('month')).toBeChecked())
+    })
+
+    test.each([
+      'day',
+      'week',
+      'year',
+    ])('by default %s should not be selected', async (option) => {
+      const { getByText, getByPlaceholderText, queryByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByTestId(option)).not.toBeChecked())
     })
   })
 

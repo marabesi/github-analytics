@@ -32,7 +32,14 @@
           <h2>Repo activity by</h2>
           <label v-for="option in by" :key="option.value" class="option">
             {{ option.label }}
-            <input type="radio" name="by" :checked="option.value === options.by" :value="option.value" @change="rangeUpdated" />
+            <input
+                :data-testid="option.label"
+                type="radio"
+                name="by"
+                :checked="option.value === options.by"
+                :value="option.value"
+                @change="rangeUpdated"
+            />
           </label>
         </div>
       </div>
