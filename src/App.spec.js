@@ -74,14 +74,35 @@ describe('<App />', () => {
   })
 
   describe('barchart data', () => {
-    xtest('renders number os commits by year', async () => {
+    test('renders number of commits by month (YYYY-MM): 2019-09', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
       await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('2019')).toBeInTheDocument())
+      await waitFor(()=> expect(queryByText('2019-09')).toBeInTheDocument())
+    })
+
+    test.each([
+      '2019-09-07',
+      '2019-09-09',
+      '2019-09-14',
+      '2019-09-15',
+      '2019-09-17',
+      '2019-09-18',
+    ])('renders number of commits by day (YYYY-MM-DD): %s', async (day) => {
+      const { getByText, getByPlaceholderText, queryByText, getByTestId, queryByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(() => expect(queryByTestId('day')).toBeInTheDocument())
+
+      await fireEvent.click(getByTestId('day'))
+
+      await waitFor(()=> expect(queryByText(day)).toBeInTheDocument())
     })
   })
 })
