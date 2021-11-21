@@ -38,7 +38,7 @@ describe('<App />', () => {
       'week',
       'month',
       'year',
-    ])('renders commits by %', async (option) => {
+    ])('renders commits by %s', async (option) => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
       await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
@@ -74,6 +74,20 @@ describe('<App />', () => {
   })
 
   describe('barchart data', () => {
+    test('renders number of commits by year (YYYY): 2019', async () => {
+      const { getByText, getByPlaceholderText, queryByText, queryByTestId, getByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(() => expect(queryByTestId('year')).toBeInTheDocument())
+
+      await fireEvent.click(getByTestId('year'))
+
+      await waitFor(()=> expect(queryByText('2019')).toBeInTheDocument())
+    })
+
     test('renders number of commits by month (YYYY-MM): 2019-09', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
@@ -101,6 +115,24 @@ describe('<App />', () => {
       await waitFor(() => expect(queryByTestId('day')).toBeInTheDocument())
 
       await fireEvent.click(getByTestId('day'))
+
+      await waitFor(()=> expect(queryByText(day)).toBeInTheDocument())
+    })
+
+    test.each([
+      '2019-36',
+      '2019-37',
+      '2019-38',
+    ])('renders number of commits by week (YYYY-WW): %s', async (day) => {
+      const { getByText, getByPlaceholderText, queryByText, getByTestId, queryByTestId } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(() => expect(queryByTestId('week')).toBeInTheDocument())
+
+      await fireEvent.click(getByTestId('week'))
 
       await waitFor(()=> expect(queryByText(day)).toBeInTheDocument())
     })
