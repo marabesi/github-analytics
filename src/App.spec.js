@@ -1,7 +1,7 @@
 import {fireEvent, render, waitFor} from '@testing-library/vue'
 import App from './App'
 
-describe('<App />', done => {
+describe('<App />', () => {
 
   test('Display input text when loading is false', () => {
     const { getByPlaceholderText } = render(App)
@@ -22,6 +22,43 @@ describe('<App />', done => {
       await fireEvent.click(getByText('Load'))
 
       await waitFor(()=> expect(queryByText('marabesi/testable')).toBeTruthy())
+    })
+
+    test('renders visualization options', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('Repo activity by')).toBeInTheDocument())
+    })
+
+    test.each([
+      'day',
+      'week',
+      'month',
+      'year',
+    ])('renders commits by %', async (option) => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText(option)).toBeInTheDocument())
+    })
+  })
+
+  describe('barchart data', () => {
+    xtest('renders number os commits by year', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText('Github Repo - :owner/:repo eg: marabesi/testable'), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('2019')).toBeInTheDocument())
     })
   })
 })
