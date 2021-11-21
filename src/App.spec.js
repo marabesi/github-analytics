@@ -48,7 +48,9 @@ describe('<App />', () => {
 
       await waitFor(()=> expect(queryByText('Repo activity by')).toBeInTheDocument())
     })
+  })
 
+  describe('barchart data', () => {
     test.each([
       'day',
       'week',
@@ -87,9 +89,6 @@ describe('<App />', () => {
 
       await waitFor(()=> expect(queryByTestId(option)).not.toBeChecked())
     })
-  })
-
-  describe('barchart data', () => {
     test('renders number of commits by year (YYYY): 2019', async () => {
       const { getByText, getByPlaceholderText, queryByText, queryByTestId, getByTestId } = render(App)
 
