@@ -14,7 +14,7 @@ describe('<App />', () => {
     expect(await queryByTestId('repo-title')).toBeFalsy()
   })
 
-  test('should fire just once when data is still loading', async () => {
+  test.skip('should fire just once when data is still loading', async () => {
     const fetchCalled = jest.spyOn(global, 'fetch')
 
     const { getByText, getByPlaceholderText } = render(App)
@@ -39,6 +39,16 @@ describe('<App />', () => {
       await waitFor(()=> expect(queryByText('marabesi/testable')).toBeTruthy())
     })
 
+    test('renders total of commits', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('marabesi/testable')).toBeTruthy())
+    })
+
     test('renders visualization options', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
@@ -46,7 +56,7 @@ describe('<App />', () => {
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('Repo activity by')).toBeInTheDocument())
+      await waitFor(()=> expect(queryByText('Commits (30)')).toBeInTheDocument())
     })
   })
 
@@ -173,6 +183,16 @@ describe('<App />', () => {
       await fireEvent.click(getByText('Load'))
 
       await waitFor(()=> expect(queryByTestId('marabesi')).toBeChecked())
+    })
+
+    test('renders author count', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('Authors (1)')).toBeInTheDocument())
     })
   })
 })

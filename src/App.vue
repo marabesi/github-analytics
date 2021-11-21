@@ -8,26 +8,10 @@
 
     <div v-if="options.data.length">
       <div class="row">
-        <div class="authors">
-          <h2>Authors ({{ authors.length }})</h2>
-          <ul class="authors__list">
-            <li v-for="author in authors" :key="author.login">
-              <label v-if="author.login">
-                <ImageWrapper :src="author.avatar_url" :width="60" />
-                <p>
-                  {{ author.login }}
-                  <input
-                      type="checkbox"
-                      :data-testid="author.login"
-                      name="author"
-                      :checked="filters.includes(author.login)"
-                      :value="author.login"
-                  />
-                </p>
-              </label>
-            </li>
-          </ul>
-        </div>
+        <AuthorList
+            :authors="authors"
+            :filters="filters"
+        />
 
         <div class="options">
           <h2>Repo activity by</h2>
@@ -76,13 +60,13 @@
 
 <script>
 import _ from 'lodash'
-import ImageWrapper from '@/components/image/ImageWrapper.vue'
 import InputText from '@/components/search/InputText.vue'
 import BarChart from '@/components/BarChart.vue'
 import BubbleChart from '@/components/BubbleChart.vue'
 import WordCloud from '@/components/WordCloud.vue'
 import { parse_link_header } from '@/githubHeader'
 import { BY_DAY, BY_WEEK, BY_MONTH, BY_YEAR } from './constants'
+import AuthorList from "@/components/authors/AuthorList";
 
 const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
@@ -90,7 +74,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET
 export default {
   name: 'app',
   components: {
-    ImageWrapper,
+    AuthorList,
     InputText,
     BarChart,
     BubbleChart,
@@ -234,18 +218,6 @@ export default {
 .stats {
   display: flex;
   justify-content: space-between;
-}
-.authors {
-  max-width: 50%;
-  overflow: auto;
-}
-.authors .authors__list {
-  list-style: none;
-  padding-left: 0;
-  display: flex;
-}
-.authors .authors__list li {
-  margin-right: 10px;
 }
 .empty {
   position: absolute;
