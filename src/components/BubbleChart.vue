@@ -91,7 +91,7 @@ export default {
           .attr("dy", ".2em")
           .style("text-anchor", "middle")
           .text(d => {
-              return d.data.name.substring(0, d.r / 3);
+              return d.data && d.data.name ? d.data.name.substring(0, d.r / 3) : '';
           })
           .attr("font-family", "sans-serif")
           .attr("font-size", d => {

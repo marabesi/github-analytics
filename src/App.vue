@@ -12,17 +12,22 @@
           <h2>Authors ({{ authors.length }})</h2>
           <ul class="authors__list">
             <li v-for="author in authors" :key="author.login">
-                <label v-if="author.login">
-                  <ImageWrapper :src="author.avatar_url" :width="60" />
-                  <p>
-                      {{ author.login }}
-                      <input type="checkbox" name="author" :checked="filters.includes(author.login)" :value="author.login" />
-                  </p>
-                </label>
+              <label v-if="author.login">
+                <ImageWrapper :src="author.avatar_url" :width="60" />
+                <p>
+                  {{ author.login }}
+                  <input
+                      type="checkbox"
+                      name="author"
+                      :checked="filters.includes(author.login)"
+                      :value="author.login"
+                  />
+                </p>
+              </label>
             </li>
           </ul>
         </div>
-        
+
         <div class="options">
           <h2>Repo activity by</h2>
           <label v-for="option in by" :key="option.value" class="option">
@@ -35,7 +40,7 @@
       <div :style="`overflow-x: auto; padding: 10px`">
         <h2>Commits ({{ options.data.length }})</h2>
         <BarChart
-          v-bind="options"
+            v-bind="options"
         />
       </div>
 
@@ -43,17 +48,17 @@
         <div>
           <h2>Tech stack (in bytes - {{ stackTotal }})</h2>
           <BubbleChart
-            :data="stackStats"
-            :width="width / 2"
-            :height="height"
+              :data="stackStats"
+              :width="width / 2"
+              :height="height"
           />
         </div>
         <div>
           <h2>Topics ({{ topics.length }})</h2>
           <WordCloud
-            :words="topics"
-            :width="width / 2"
-            :height="height"
+              :words="topics"
+              :width="width / 2"
+              :height="height"
           />
         </div>
       </div>
@@ -120,76 +125,79 @@ export default {
         this.fetchStackStats(url.replace('{report}', 'languages')),
         this.fetchTopics(url.replace('{report}', 'topics'))
       ])
-      .finally(() => this.loading = false)
+          .finally(() => this.loading = false)
     },
     rangeUpdated(event) {
       this.options.by = parseInt(event.target.value)
     },
     fetchStackStats(url) {
       return fetch(url).then(response => response.json())
-        .then(data => {
-          const langs = []
-          let total = 0
+          .then(data => {
+            const langs = []
+            let total = 0
 
-          for (const lang in data) {
-            langs.push({
-              name: lang,
-              count: data[lang]
-            })
-            total += data[lang]
-          }
-          this.stackStats = { children: langs }
-          this.stackTotal = total
-        })
+            for (const lang in data) {
+              langs.push({
+                name: lang,
+                count: data[lang]
+              })
+              total += data[lang]
+            }
+            this.stackStats = { children: langs }
+            this.stackTotal = total
+          })
     },
     fetchTopics(url) {
       const headers = new Headers()
       headers.append('Accept', 'application/vnd.github.mercy-preview+json')
       return fetch(url, { headers }).then(response => response.json())
-        .then(data => {
-          this.topics = data.names.map(text => {
-            return {
-              text
+          .then(data => {
+            if (data.names) {
+              this.topics = data.names.map(text => {
+                return {
+                  text
+                }
+              })
             }
           })
-        })
     },
     fetchData(url) {
-        const requests = []
-        return fetch(url)
-          .then( response => {
-              const headers = response.headers.values()
-              for(let test of headers) {
-                if (test.includes('api.github')) {
-                  const nextPage = parse_link_header(test)
-                  
-                  if (nextPage.last) {
-                    const dale = nextPage.last.split('=')
-                    const last = dale[dale.length - 1]
+      const requests = []
+      return fetch(url)
+          .then(response => {
+            const headers = response.headers.values()
+            for(let test of headers) {
+              if (test.includes('api.github')) {
+                const nextPage = parse_link_header(test)
 
-                    for (var i = 1; i < last; i++) {
-                      requests.push(fetch(`${url}&page=${i + 1}`).then(data => data.json()))
-                    }
+                if (nextPage.last) {
+                  const dale = nextPage.last.split('=')
+                  const last = dale[dale.length - 1]
+
+                  for (var i = 1; i < last; i++) {
+                    requests.push(fetch(`${url}&page=${i + 1}`).then(data => data.json()))
                   }
                 }
               }
-              response.json().then(firstDataSet => {
-                Promise.all(requests).then(data => {
-                  data.push(firstDataSet)
-                  const normalize = _.flatten(data)
-                  this.options.data = normalize
-                  this.authors = _.uniqBy(this.options.data.map(item => {
-                    const author = {
-                      login: item.author ? item.author.login : '',
-                      avatar_url: item.author ? item.author.avatar_url: ''
-                    }
-                    this.filters.push(author.login)
-                    return author
-                  }), 'login')
-                })
+            }
+
+            response.json().then(firstDataSet => {
+              Promise.all(requests).then(data => {
+                data.push(firstDataSet)
+                const normalize = _.flatten(data)
+                this.options.data = normalize
+                this.authors = _.uniqBy(this.options.data.map(item => {
+                  const author = {
+                    login: item.author ? item.author.login : '',
+                    avatar_url: item.author ? item.author.avatar_url: ''
+                  }
+                  this.filters.push(author.login)
+                  return author
+                }), 'login')
               })
+            }).catch(error => console.error(error))
           })
-      },
+    },
   }
 }
 </script>

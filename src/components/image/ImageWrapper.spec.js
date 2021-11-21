@@ -38,8 +38,6 @@ describe('ImageWrapper component', () => {
       }
     })
 
-    wrapper.vm.$nextTick(() => {})
-
     setTimeout(() => {
       expect(wrapper.findAll('.loading').length).toEqual(0)
       expect(wrapper.findAll('img').length).toEqual(1)
