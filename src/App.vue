@@ -66,7 +66,7 @@ import BubbleChart from '@/components/BubbleChart.vue'
 import WordCloud from '@/components/WordCloud.vue'
 import { parse_link_header } from '@/githubHeader'
 import { BY_DAY, BY_WEEK, BY_MONTH, BY_YEAR } from './constants'
-import AuthorList from "@/components/authors/AuthorList";
+import AuthorList from "@/components/authors/AuthorList"
 
 const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
