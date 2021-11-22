@@ -1,4 +1,4 @@
-import fakeGithubApi from "./stubs/githuapi.json"
+import fakeGithubApi from "./stubs/github.commits.json"
 import fakeGithubTopics from "./stubs/github.empty.topics.json"
 import fakeGithubLanguages from "./stubs/github.empty.languages.json"
 
