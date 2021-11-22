@@ -6,7 +6,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 import * as d3 from 'd3'
-import { BY_DAY, BY_MONTH, BY_WEEK } from '../constants'
+import { BY_DAY, BY_MONTH, BY_WEEK } from '../../constants'
 
 export default {
   name: 'BarChart',

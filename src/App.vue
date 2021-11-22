@@ -61,9 +61,9 @@
 <script>
 import _ from 'lodash'
 import InputText from '@/components/search/InputText.vue'
-import BarChart from '@/components/BarChart.vue'
-import BubbleChart from '@/components/BubbleChart.vue'
-import WordCloud from '@/components/WordCloud.vue'
+import BarChart from '@/components/charts/BarChart.vue'
+import BubbleChart from '@/components/charts/BubbleChart.vue'
+import WordCloud from '@/components/charts/WordCloud.vue'
 import { parse_link_header } from '@/githubHeader'
 import { BY_DAY, BY_WEEK, BY_MONTH, BY_YEAR } from './constants'
 import AuthorList from "@/components/authors/AuthorList"
