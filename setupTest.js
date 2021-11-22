@@ -1,6 +1,6 @@
-import fakeGithubApi from "@/githuapi.json"
-import fakeGithubTopics from "@/github.empty.topics.json"
-import fakeGithubLanguages from "@/github.empty.languages.json"
+import fakeGithubApi from "./stubs/githuapi.json"
+import fakeGithubTopics from "./stubs/github.empty.topics.json"
+import fakeGithubLanguages from "./stubs/github.empty.languages.json"
 
 import '@testing-library/jest-dom'
 
