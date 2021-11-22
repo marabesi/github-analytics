@@ -117,7 +117,7 @@ export default {
         this.fetchStackStats(url.replace('{report}', 'languages')),
         this.fetchTopics(url.replace('{report}', 'topics'))
       ])
-          .finally(() => this.loading = false)
+      .finally(() => this.loading = false)
     },
     rangeUpdated(event) {
       this.options.by = parseInt(event.target.value)

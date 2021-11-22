@@ -2,6 +2,7 @@ import {fireEvent, render, waitFor} from '@testing-library/vue'
 import App from './App'
 
 const searchPlaceholder = 'Github Repo - :owner/:repo eg: marabesi/testable'
+const repositoryName = 'marabesi/testable';
 
 describe('<App />', () => {
   test('Display input text when loading is false', () => {
@@ -19,7 +20,7 @@ describe('<App />', () => {
 
     const { getByText, getByPlaceholderText } = render(App)
 
-    await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+    await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
     await fireEvent.click(getByText('Load'))
     await fireEvent.click(getByText('Load'))
@@ -32,31 +33,55 @@ describe('<App />', () => {
     test('renders github repo name', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('marabesi/testable')).toBeTruthy())
+      await waitFor(()=> expect(queryByText(repositoryName)).toBeTruthy())
     })
 
     test('renders total of commits', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('marabesi/testable')).toBeTruthy())
+      await waitFor(()=> expect(queryByText(repositoryName)).toBeTruthy())
     })
 
     test('renders visualization options', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
       await waitFor(()=> expect(queryByText('Commits (30)')).toBeInTheDocument())
+    })
+  })
+
+  describe('bubble chart', () => {
+    test('renders tech stack title stats', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('Tech stack (in bytes - 0)')).toBeInTheDocument())
+    })
+  })
+
+  describe('word cloud', () => {
+    test('renders topics title', async () => {
+      const { getByText, getByPlaceholderText, queryByText } = render(App)
+
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
+
+      await fireEvent.click(getByText('Load'))
+
+      await waitFor(()=> expect(queryByText('Topics (0)')).toBeInTheDocument())
     })
   })
 
@@ -69,7 +94,7 @@ describe('<App />', () => {
     ])('renders commits by %s', async (option) => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -79,7 +104,7 @@ describe('<App />', () => {
     test('by default month should be selected', async () => {
       const { getByText, getByPlaceholderText, queryByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -93,7 +118,7 @@ describe('<App />', () => {
     ])('by default %s should not be selected', async (option) => {
       const { getByText, getByPlaceholderText, queryByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -103,7 +128,7 @@ describe('<App />', () => {
     test('renders number of commits by year (YYYY): 2019', async () => {
       const { getByText, getByPlaceholderText, queryByText, queryByTestId, getByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -117,7 +142,7 @@ describe('<App />', () => {
     test('renders number of commits by month (YYYY-MM): 2019-09', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -134,7 +159,7 @@ describe('<App />', () => {
     ])('renders number of commits by day (YYYY-MM-DD): %s', async (day) => {
       const { getByText, getByPlaceholderText, queryByText, getByTestId, queryByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -152,7 +177,7 @@ describe('<App />', () => {
     ])('renders number of commits by week (YYYY-WW): %s', async (day) => {
       const { getByText, getByPlaceholderText, queryByText, getByTestId, queryByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -168,7 +193,7 @@ describe('<App />', () => {
     test('renders author name', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -178,7 +203,7 @@ describe('<App />', () => {
     test('should display author commits by default', async () => {
       const { getByText, getByPlaceholderText, queryByTestId } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 
@@ -188,7 +213,7 @@ describe('<App />', () => {
     test('renders author count', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), 'marabesi/testable')
+      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
 
       await fireEvent.click(getByText('Load'))
 

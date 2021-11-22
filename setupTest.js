@@ -5,7 +5,7 @@ require('jest-fetch-mock').enableMocks()
 
 beforeEach(() => {
   global.URL.createObjectURL = jest.fn();
-  fetchMock.mockIf(/^https?:\/\/api.github.com.*$/, () => {
+  fetchMock.mockIf(/commits/, () => {
     return Promise.resolve({
       headers: {
         "Content-type": "application/json",
