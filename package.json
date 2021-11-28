@@ -7,7 +7,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --collectCoverage --ci --colors",
+    "coveralls": "yarn coverage && coveralls < coverage/lcov.info"
   },
   "dependencies": {
     "core-js": "^3.6.5",
