@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/marabesi/github-stats-dashboard/badge.svg?branch=master)](https://coveralls.io/github/marabesi/github-stats-dashboard?branch=master)
+
 # Github stats dashboard
 
 ![Activity](activity.png)
