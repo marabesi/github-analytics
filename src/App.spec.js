@@ -58,29 +58,4 @@ describe('<App />', () => {
       await waitFor(()=> expect(queryByText('Commits (30)')).toBeInTheDocument())
     })
   })
-
-  describe('bubble chart', () => {
-    test('renders tech stack title stats', async () => {
-      const { getByText, getByPlaceholderText, queryByText } = render(App)
-
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
-
-      await fireEvent.click(getByText('Load'))
-
-      await waitFor(()=> expect(queryByText('Tech stack (in bytes - 0)')).toBeInTheDocument())
-    })
-  })
-
-  describe('word cloud', () => {
-    test('renders topics title', async () => {
-      const { getByText, getByPlaceholderText, queryByText } = render(App)
-
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
-
-      await fireEvent.click(getByText('Load'))
-
-      await waitFor(()=> expect(queryByText('Topics (0)')).toBeInTheDocument())
-    })
-  })
-
 })
