@@ -1,8 +1,6 @@
 import {fireEvent, render, waitFor} from '@testing-library/vue'
 import App from './App'
-
-const searchPlaceholder = 'Github Repo - :owner/:repo eg: marabesi/testable'
-const repositoryName = 'marabesi/testable';
+import {repositoryName, searchPlaceholder} from "../stubs/constants";
 
 describe('<App />', () => {
   test('Display input text when loading is false', () => {
@@ -186,38 +184,6 @@ describe('<App />', () => {
       await fireEvent.click(getByTestId('week'))
 
       await waitFor(()=> expect(queryByText(day)).toBeInTheDocument())
-    })
-  })
-
-  describe('authors', () => {
-    test('renders author name', async () => {
-      const { getByText, getByPlaceholderText, queryByText } = render(App)
-
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
-
-      await fireEvent.click(getByText('Load'))
-
-      await waitFor(()=> expect(queryByText('marabesi')).toBeInTheDocument())
-    })
-
-    test('should display author commits by default', async () => {
-      const { getByText, getByPlaceholderText, queryByTestId } = render(App)
-
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
-
-      await fireEvent.click(getByText('Load'))
-
-      await waitFor(()=> expect(queryByTestId('marabesi')).toBeChecked())
-    })
-
-    test('renders author count', async () => {
-      const { getByText, getByPlaceholderText, queryByText } = render(App)
-
-      await fireEvent.update(getByPlaceholderText(searchPlaceholder), repositoryName)
-
-      await fireEvent.click(getByText('Load'))
-
-      await waitFor(()=> expect(queryByText('Authors (1)')).toBeInTheDocument())
     })
   })
 })
