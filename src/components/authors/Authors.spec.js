@@ -1,6 +1,6 @@
 import {fireEvent, render, waitFor} from '@testing-library/vue'
-import App from './App'
-import {repositoryName, searchPlaceholder} from "../stubs/constants";
+import App from '../../App'
+import {repositoryName, searchPlaceholder} from '../../../stubs/constants';
 
 describe('authors', () => {
   test('renders author name', async () => {
