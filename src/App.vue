@@ -113,8 +113,8 @@ export default {
       this.loading = true
       const url = `https://api.github.com/repos/${repo}/{report}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
       Promise.all([
-        this.fetchData(url.replace('{report}', 'commits')),
         this.fetchStackStats(url.replace('{report}', 'languages')),
+        this.fetchData(url.replace('{report}', 'commits')),
         this.fetchTopics(url.replace('{report}', 'topics'))
       ])
       .finally(() => this.loading = false)

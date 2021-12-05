@@ -1,6 +1,6 @@
 import fakeGithubApi from "./stubs/github.commits.json"
 import fakeGithubTopics from "./stubs/github.empty.topics.json"
-import fakeGithubLanguages from "./stubs/github.empty.languages.json"
+import fakeEmptyGithubLanguages from "./stubs/github.empty.languages.json"
 
 import '@testing-library/jest-dom'
 
@@ -9,7 +9,6 @@ require('jest-fetch-mock').enableMocks()
 beforeEach(() => {
   global.URL.createObjectURL = jest.fn();
   fetchMock.mockIf(/^https?:\/\/api\.github\.com.*$/, request => {
-
     if (request.url.indexOf('commits') !== -1) {
       return Promise.resolve({
         headers: {
@@ -34,7 +33,7 @@ beforeEach(() => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(fakeGithubLanguages),
+        body: JSON.stringify(fakeEmptyGithubLanguages),
       })
     }
 
