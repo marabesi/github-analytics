@@ -19,7 +19,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "vue": "^2.6.12",
-    "vue-router": "^3.5.2"
+    "vue-router": "^3.5.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
