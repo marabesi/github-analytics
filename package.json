@@ -35,7 +35,7 @@
     "canvas": "^2.9.1",
     "coveralls": "^3.1.1",
     "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^8.6.0",
+    "eslint-plugin-vue": "^9.0.1",
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3",
     "vue-jest": "^3.0.6",
