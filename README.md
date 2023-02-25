@@ -3,9 +3,9 @@
 
 # Github stats dashboard
 
-![Activity](activity.png)
+![Activity](webapp/activity.png)
 
-![Details](details.png)
+![Details](webapp/details.png)
 
 ## Related resources
 
