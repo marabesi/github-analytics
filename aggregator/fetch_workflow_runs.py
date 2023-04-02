@@ -24,17 +24,22 @@ total = 0
 total_fetched = 0
 
 user = "marabesi"
-repository = "json-tool"
-workflow_file_name = "ci.yml"
+repository = "github-stats-dashboard"
+workflow_file_name = "deploy.yml"
 
 while True:
     payload = {'page': page, 'per_page': size}
     print("fetching {}".format(payload))
-    
-    result = requests.get(github_api + "/repos/{}/{}/actions/workflows/{}/runs".format(user, repository, workflow_file_name), params=payload)
+
+    url = github_api + "/repos/{}/{}/actions/workflows/{}/runs".format(user, repository, workflow_file_name)
+    result = requests.get(url, params=payload)
 
     response = json.loads(result.text)
-    
+
+    for run in response["workflow_runs"]:
+        with open("output/workflows/{}.json".format(run["id"]), "w") as workflow_run:
+            workflow_run.write(json.dumps(run, indent=2))
+
     total = int(response["total_count"])
 
     total_fetched = total_fetched + size
