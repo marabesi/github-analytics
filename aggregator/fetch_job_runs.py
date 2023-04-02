@@ -1,17 +1,5 @@
 import requests
 import json
-import time
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-token = os.getenv("GITHUB_API_TOKEN")
-github_api = "https://api.github.com"
-
-headers = {'Authorization': "Bearer {}".format(token)}
-
-workflow_runs = os.listdir("./output/workflows")
 
 def fetch_job(workflow_run):
     url = workflow_run["jobs_url"]
@@ -38,4 +26,3 @@ for run in workflow_runs:
             except:
                 print("cannot load file {}".format(run))
     print("done {}".format(run))
-    break
