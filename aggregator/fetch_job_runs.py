@@ -1,5 +1,9 @@
 import requests
 import json
+import time
+import os
+
+workflow_runs = os.listdir("./output/workflows")
 
 def fetch_job(workflow_run):
     url = workflow_run["jobs_url"]
@@ -26,3 +30,4 @@ for run in workflow_runs:
             except:
                 print("cannot load file {}".format(run))
     print("done {}".format(run))
+    time.sleep(2)
