@@ -7,7 +7,6 @@ import fetchMock from 'jest-fetch-mock'
 import '@testing-library/jest-dom'
 
 fetchMock.enableMocks()
-
 beforeEach(() => {
   global.URL.createObjectURL = jest.fn()
   fetchMock.mockIf(/^https?:\/\/api\.github\.com.*$/, (request: any): any => {
