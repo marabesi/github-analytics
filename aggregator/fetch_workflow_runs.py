@@ -1,15 +1,8 @@
-import requests
 import json
 import time
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-token = os.getenv("GITHUB_API_TOKEN")
-github_api = "https://api.github.com"
-
-headers = {'Authorization': "Bearer {}".format(token)}
+from config import Config
+from github_client import Client
 
 # start page to fetch data
 page = 1  
@@ -23,21 +16,29 @@ total = 0
 #Tracks the total of items requested, this is also used as a exit condition
 total_fetched = 0
 
-user = "marabesi"
-repository = "github-stats-dashboard"
-workflow_file_name = "deploy.yml"
+client = Client()
+
+config = Config()
+user = config.user
+repository = config.repository
+workflow_file_name = config.workflow_file_name
+branch = config.branch
+
+destination = config.workflows_destination
 
 while True:
-    payload = {'page': page, 'per_page': size}
+    payload = {'page': page, 'per_page': size, 'branch': branch}
     print("fetching {}".format(payload))
 
-    url = github_api + "/repos/{}/{}/actions/workflows/{}/runs".format(user, repository, workflow_file_name)
-    result = requests.get(url, params=payload)
-
-    response = json.loads(result.text)
+    url = "/repos/{}/{}/actions/workflows/{}/runs".format(user, repository, workflow_file_name)
+    response = client.fetch_json(url, payload)
 
     for run in response["workflow_runs"]:
-        with open("output/workflows/{}.json".format(run["id"]), "w") as workflow_run:
+        full_path = "{}/{}.json".format(destination, run["id"])
+        # https://stackoverflow.com/questions/12517451/automatically-creating-directories-with-file-output
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+
+        with open(full_path, "w") as workflow_run:
             workflow_run.write(json.dumps(run, indent=2))
 
     total = int(response["total_count"])

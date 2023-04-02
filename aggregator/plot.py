@@ -2,10 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from config import Config
+
+config = Config()
+
 x = []
 y = []
 
-data = pd.read_json("./output/result.json")
+data = pd.read_json(config.result_destination)
 
 grouped = data.groupby("x")
 

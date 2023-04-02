@@ -2,9 +2,13 @@ import os
 import json
 from datetime import datetime
 
-job_runs = os.listdir("./output/jobs")
+from config import Config
 
-target_step = "Coverage ✅"
+config = Config()
+
+job_runs = os.listdir(config.jobs_destination)
+
+target_step = config.job_target
 
 total_steps = 0
 
@@ -12,7 +16,7 @@ data_points = []
 
 for job in job_runs:
     if job.endswith(".json"):
-        with open("./output/jobs/{}".format(job), "r") as job_file:
+        with open("{}/{}".format(config.jobs_destination, job), "r") as job_file:
             try:
                 read = job_file.read()
                 content = json.loads(read)
@@ -40,7 +44,7 @@ for job in job_runs:
             except Exception as error:
                 print("cannot load file {}, {}".format(job, error))
 
-with open("./output/result.json", "w") as result:
+with open("{}".format(config.result_destination), "w") as result:
     result.write(json.dumps(data_points))
 
 print("{} step(s) {}".format(target_step, total_steps))
