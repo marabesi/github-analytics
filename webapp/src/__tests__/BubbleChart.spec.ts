@@ -1,6 +1,6 @@
-import {fireEvent, render, waitFor} from "@testing-library/vue";
-import App from "@/App";
-import {repositoryName, searchPlaceholder} from "../../../stubs/constants";
+import { fireEvent, render, waitFor } from '@testing-library/vue'
+import App from '@/App.vue'
+import { repositoryName, searchPlaceholder } from '../../stubs/constants'
 
 describe('bubble chart', () => {
   test('renders tech stack title stats', async () => {
@@ -10,6 +10,6 @@ describe('bubble chart', () => {
 
     await fireEvent.click(getByText('Load'))
 
-    await waitFor(()=> expect(queryByText('Tech stack (in bytes - 0)')).toBeInTheDocument())
+    await waitFor(() => expect(queryByText('Tech stack (in bytes - 0)')).toBeInTheDocument())
   })
 })

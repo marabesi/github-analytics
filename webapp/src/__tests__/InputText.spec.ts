@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import InputText from './InputText.vue'
+import InputText from '../components/search/InputText.vue'
 
 const VALID_SEARCH_STRING = 'user/myrepo'
 const INVALID_SEARCH_STRING = 'myrepo'
@@ -58,11 +58,8 @@ describe('InputText', () => {
 
     expect(wrapper.emitted().onSearch).toEqual([[VALID_SEARCH_STRING]])
 
-    // refs https://github.com/vuejs/vue-test-utils/issues/1252
-    wrapper._emitted['onSearch'] = null
-
     wrapper.find('form').trigger('submit')
 
-    expect(wrapper.emitted().onSearch).toBeFalsy()
+    expect(wrapper.emitted().onSearch).toHaveLength(1)
   })
 })

@@ -17,7 +17,7 @@ export default {
     searched: ''
   }),
   methods: {
-    loadData() {
+    loadData () {
       if (!this.repo || !this.repo.includes('/')) {
         return
       }
@@ -31,7 +31,7 @@ export default {
       this.$emit('onSearch', this.repo)
     }
   }
-};
+}
 </script>
 
 <style>

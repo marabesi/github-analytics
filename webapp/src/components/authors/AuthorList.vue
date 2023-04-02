@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import ImageWrapper from "@/components/image/ImageWrapper";
+import ImageWrapper from '@/components/image/ImageWrapper'
 
 export default {
   name: 'AuthorList',
@@ -38,7 +38,7 @@ export default {
       type: Array,
       required: true
     }
-  },
+  }
 }
 </script>
 

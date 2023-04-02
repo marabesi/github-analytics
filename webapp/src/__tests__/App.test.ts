@@ -1,12 +1,13 @@
-import {fireEvent, render, waitFor} from '@testing-library/vue'
-import App from './App'
-import {repositoryName, searchPlaceholder} from "../stubs/constants";
-import fakeGithubLanguages from "../stubs/github.languages.json"
+import { fireEvent, render, waitFor } from '@testing-library/vue'
+import App from '@/App.vue'
+import { repositoryName, searchPlaceholder } from '../../stubs/constants'
+import fakeGithubLanguages from '../../stubs/github.languages.json'
+import fetchMock from 'jest-fetch-mock'
 
 describe('<App />', () => {
   test('Display input text when loading is false', () => {
     const { getByPlaceholderText } = render(App)
-    expect(getByPlaceholderText(searchPlaceholder)).toBeTruthy();
+    expect(getByPlaceholderText(searchPlaceholder)).toBeTruthy()
   })
 
   test('Not display repo title if empty', async () => {
@@ -14,7 +15,7 @@ describe('<App />', () => {
     expect(await queryByTestId('repo-title')).toBeFalsy()
   })
 
-  test.skip('should fire just once when data is still loading', async () => {
+  test('should fire just once when data is still loading', async () => {
     const fetchCalled = jest.spyOn(global, 'fetch')
 
     const { getByText, getByPlaceholderText } = render(App)
@@ -36,7 +37,7 @@ describe('<App />', () => {
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText(repositoryName)).toBeTruthy())
+      await waitFor(() => expect(queryByText(repositoryName)).toBeTruthy())
     })
 
     test('renders total of commits', async () => {
@@ -46,7 +47,7 @@ describe('<App />', () => {
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText(repositoryName)).toBeTruthy())
+      await waitFor(() => expect(queryByText(repositoryName)).toBeTruthy())
     })
 
     test('renders visualization options', async () => {
@@ -56,7 +57,7 @@ describe('<App />', () => {
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('Commits (30)')).toBeInTheDocument())
+      await waitFor(() => expect(queryByText('Commits (30)')).toBeInTheDocument())
     })
   })
 
@@ -65,6 +66,8 @@ describe('<App />', () => {
       fetchMock.mockOnceIf(/languages/, JSON.stringify(fakeGithubLanguages))
     })
 
+    afterEach(() => fetchMock.mockClear())
+
     test('should render html in the tech stack', async () => {
       const { getByText, getByPlaceholderText, queryByText } = render(App)
 
@@ -72,7 +75,7 @@ describe('<App />', () => {
 
       await fireEvent.click(getByText('Load'))
 
-      await waitFor(()=> expect(queryByText('HTML: 1729')).toBeInTheDocument())
+      await waitFor(() => expect(queryByText('HTML: 1729')).toBeInTheDocument())
     })
-  });
+  })
 })

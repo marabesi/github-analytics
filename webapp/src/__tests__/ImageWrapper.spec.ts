@@ -1,20 +1,21 @@
-require('jest-fetch-mock').enableMocks()
+import { render, waitFor, waitForElementToBeRemoved } from '@testing-library/vue'
+import ImageWrapper from '../components/image/ImageWrapper.vue'
+import fetchMock from 'jest-fetch-mock'
 
-import { render, waitFor, waitForElementToBeRemoved } from "@testing-library/vue";
-import ImageWrapper from './ImageWrapper.vue'
+fetchMock.enableMocks()
 
 const src = 'http://www.my.com/ggg.png'
 
 describe('ImageWrapper component', () => {
   beforeEach(() => {
-    global.URL.createObjectURL = jest.fn();
+    global.URL.createObjectURL = jest.fn()
     fetchMock.doMock()
 
     const mockFetchPromise = Promise.resolve({
-      blob: () => Promise.resolve(new Blob()),
-    })
+      blob: () => Promise.resolve(new Blob())
+    }) as Promise<Response>
 
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise)
+    jest.spyOn(global, 'fetch').mockImplementation((): Promise<Response> => mockFetchPromise)
   })
 
   afterEach(() => {
@@ -23,7 +24,7 @@ describe('ImageWrapper component', () => {
 
   test('should show up loading placeholder', async () => {
     const { queryByText } = render(ImageWrapper, {
-      propsData: {
+      props: {
         src
       }
     })
@@ -35,7 +36,7 @@ describe('ImageWrapper component', () => {
 
   test('should hide loading placeholder when image loading is completed', async () => {
     const { queryByText } = render(ImageWrapper, {
-      propsData: {
+      props: {
         src
       }
     })
@@ -45,7 +46,7 @@ describe('ImageWrapper component', () => {
 
   test('should show image once loading is completed', async () => {
     const { queryByTestId } = render(ImageWrapper, {
-      propsData: {
+      props: {
         src
       }
     })

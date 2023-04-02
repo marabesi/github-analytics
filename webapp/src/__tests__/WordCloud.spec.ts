@@ -1,6 +1,6 @@
-import {fireEvent, render, waitFor} from "@testing-library/vue";
-import App from "@/App";
-import {repositoryName, searchPlaceholder} from "../../../stubs/constants";
+import { fireEvent, render, waitFor } from '@testing-library/vue'
+import App from '@/App.vue'
+import { repositoryName, searchPlaceholder } from '../../stubs/constants'
 
 describe('word cloud', () => {
   test('renders topics title', async () => {
@@ -10,6 +10,6 @@ describe('word cloud', () => {
 
     await fireEvent.click(getByText('Load'))
 
-    await waitFor(()=> expect(queryByText('Topics (0)')).toBeInTheDocument())
+    await waitFor(() => expect(queryByText('Topics (0)')).toBeInTheDocument())
   })
 })

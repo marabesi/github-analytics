@@ -21,13 +21,15 @@ export default {
     loading: true,
     blob: null
   }),
-  mounted() {
+  mounted () {
     return fetch(this.src)
       .then(response => response.blob())
       .then(blob => {
         const objectURL = URL.createObjectURL(blob)
         this.blob = objectURL
-      }).finally(() => this.loading = false)
+      }).finally(() => {
+        this.loading = false
+      })
   }
 }
 </script>

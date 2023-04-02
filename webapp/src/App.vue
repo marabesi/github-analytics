@@ -64,14 +64,15 @@ import InputText from '@/components/search/InputText.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import BubbleChart from '@/components/charts/BubbleChart.vue'
 import WordCloud from '@/components/charts/WordCloud.vue'
-import { parse_link_header } from '@/githubHeader'
+import { parseLinkHeader } from '@/githubHeader'
 import { BY_DAY, BY_WEEK, BY_MONTH, BY_YEAR } from './constants'
-import AuthorList from "@/components/authors/AuthorList"
+import AuthorList from '@/components/authors/AuthorList'
+import { defineComponent } from 'vue'
 
 const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
 
-export default {
+export default defineComponent({
   name: 'app',
   components: {
     AuthorList,
@@ -104,7 +105,7 @@ export default {
     filters: []
   }),
   methods: {
-    loadData(repo) {
+    loadData (repo) {
       this.repo = repo
       if (this.loading) {
         return
@@ -117,81 +118,83 @@ export default {
         this.fetchData(url.replace('{report}', 'commits')),
         this.fetchTopics(url.replace('{report}', 'topics'))
       ])
-      .finally(() => this.loading = false)
+        .finally(() => {
+          this.loading = false
+        })
     },
-    rangeUpdated(event) {
+    rangeUpdated (event) {
       this.options.by = parseInt(event.target.value)
     },
-    fetchStackStats(url) {
+    fetchStackStats (url) {
       return fetch(url).then(response => response.json())
-          .then(data => {
-            const langs = []
-            let total = 0
+        .then(data => {
+          const langs = []
+          let total = 0
 
-            for (const lang in data) {
-              langs.push({
-                name: lang,
-                count: data[lang]
-              })
-              total += data[lang]
-            }
-            this.stackStats = { children: langs }
-            this.stackTotal = total
-          })
+          for (const lang in data) {
+            langs.push({
+              name: lang,
+              count: data[lang]
+            })
+            total += data[lang]
+          }
+          this.stackStats = { children: langs }
+          this.stackTotal = total
+        })
     },
-    fetchTopics(url) {
+    fetchTopics (url) {
       const headers = new Headers()
       headers.append('Accept', 'application/vnd.github.mercy-preview+json')
       return fetch(url, { headers }).then(response => response.json())
-          .then(data => {
-            if (data.names) {
-              this.topics = data.names.map(text => {
-                return {
-                  text
-                }
-              })
-            }
-          })
+        .then(data => {
+          if (data.names) {
+            this.topics = data.names.map(text => {
+              return {
+                text
+              }
+            })
+          }
+        })
     },
-    fetchData(url) {
+    fetchData (url) {
       const requests = []
       return fetch(url)
-          .then(response => {
-            const headers = response.headers.values()
-            for(let test of headers) {
-              if (test.includes('api.github')) {
-                const nextPage = parse_link_header(test)
+        .then(response => {
+          const headers = response.headers.values()
+          for (const test of headers) {
+            if (test.includes('api.github')) {
+              const nextPage = parseLinkHeader(test)
 
-                if (nextPage.last) {
-                  const dale = nextPage.last.split('=')
-                  const last = dale[dale.length - 1]
+              if (nextPage.last) {
+                const dale = nextPage.last.split('=')
+                const last = dale[dale.length - 1]
 
-                  for (var i = 1; i < last; i++) {
-                    requests.push(fetch(`${url}&page=${i + 1}`).then(data => data.json()))
-                  }
+                for (let i = 1; i < last; i++) {
+                  requests.push(fetch(`${url}&page=${i + 1}`).then(data => data.json()))
                 }
               }
             }
+          }
 
-            response.json().then(firstDataSet => {
-              Promise.all(requests).then(data => {
-                data.push(firstDataSet)
-                const normalize = _.flatten(data)
-                this.options.data = normalize
-                this.authors = _.uniqBy(this.options.data.map(item => {
-                  const author = {
-                    login: item.author ? item.author.login : '',
-                    avatar_url: item.author ? item.author.avatar_url: ''
-                  }
-                  this.filters.push(author.login)
-                  return author
-                }), 'login')
-              })
-            }).catch(error => console.error(error))
-          })
-    },
+          response.json().then(firstDataSet => {
+            Promise.all(requests).then(data => {
+              data.push(firstDataSet)
+              const normalize = _.flatten(data)
+              this.options.data = normalize
+              this.authors = _.uniqBy(this.options.data.map(item => {
+                const author = {
+                  login: item.author ? item.author.login : '',
+                  avatar_url: item.author ? item.author.avatar_url : ''
+                }
+                this.filters.push(author.login)
+                return author
+              }), 'login')
+            })
+          }).catch(error => console.error(error))
+        })
+    }
   }
-}
+})
 </script>
 
 <style>
