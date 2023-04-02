@@ -3,10 +3,17 @@
 class Config:
     def __init__(self):
         self.user = "marabesi"
-        self.repository = "jest-clipboard"
-        self.workflow_file_name = "delivery.yml"
+        self.repository = "social-publisher"
+        self.workflow_file_name = "ci.yml"
         self.branch = "main"
-        self.job_target = "Run npm run coveralls"
+        self.job_target = "Test and coverage"
+
+
+        # self.user = "marabesi"
+        # self.repository = "jest-clipboard"
+        # self.workflow_file_name = "delivery.yml"
+        # self.branch = "main"
+        # self.job_target = "Run npm run coveralls"
 
         # self.user = "marabesi"
         # self.repository = "git-bot-release"
