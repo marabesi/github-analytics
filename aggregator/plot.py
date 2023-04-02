@@ -20,8 +20,8 @@ for name, group in grouped:
 xpoints = np.array(x)
 ypoints = np.array(y)
 
-plt.title("Time taken to run the test with coverage in github actions")
+plt.title("Time taken to run {} from {}".format(config.job_target, config.repository))
 plt.xlabel('Time in seconds')
-plt.ylabel('Workflow runs')
+plt.ylabel("Workflow runs ({})".format(config.workflow_file_name))
 plt.plot(xpoints, ypoints)
 plt.show()
