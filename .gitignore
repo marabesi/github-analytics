@@ -23,3 +23,5 @@ yarn-error.log*
 
 coverage/
 aggregator/output/**/*.json
+
+__pycache__/
