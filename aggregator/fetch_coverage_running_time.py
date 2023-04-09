@@ -22,7 +22,7 @@ for job in job_runs:
                 content = json.loads(read)
 
                 for step in content["steps"]:
-                    if step["name"] == target_step:
+                    if step["name"] == target_step and step["status"] == "completed":
                         total_steps = total_steps + 1
                         started_at_ = step["started_at"]
                         completed_at_ = step["completed_at"]
