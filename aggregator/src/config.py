@@ -10,24 +10,24 @@ class Config:
         # self.job_target = "Test integration with twitter"
         # # self.job_target = "Build with Gradle"
         # # self.job_target = "Test and coverage"
-        # self.filters = [
-        #     {'completed': "2023-01-20", 'condition': ">="}
-        # ]
-        # self.sort = [
-        #     {'completed': "asc"}
-        # ]
-
-        self.user = "marabesi"
-        self.repository = "tdd-anti-patterns-book"
-        self.workflow_file_name = "latex.yml"
-        self.branch = "main"
-        self.job_target = "Compile LaTeX document"
+        self.filters = [
+            {'completed': "2023-01-20", 'condition': ">="}
+        ]
+        self.sort = [
+            {'completed': "asc"}
+        ]
 
         # self.user = "marabesi"
-        # self.repository = "jest-clipboard"
-        # self.workflow_file_name = "delivery.yml"
+        # self.repository = "tdd-anti-patterns-book"
+        # self.workflow_file_name = "latex.yml"
         # self.branch = "main"
-        # self.job_target = "Run npm run coveralls"
+        # self.job_target = "Compile LaTeX document"
+
+        self.user = "marabesi"
+        self.repository = "jest-clipboard"
+        self.workflow_file_name = "delivery.yml"
+        self.branch = "main"
+        self.job_target = "Run npm run coveralls"
 
         # self.user = "marabesi"
         # self.repository = "git-bot-release"
