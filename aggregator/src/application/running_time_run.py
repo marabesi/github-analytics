@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from src.config import Config
 from src.repositories.job_repository import JobRepository

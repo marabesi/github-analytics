@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from config import Config
+from src.config import Config
 
 config = Config()
 
