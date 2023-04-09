@@ -32,3 +32,18 @@ class WorkflowRepository:
                 workflow_run.write(json.dumps(run, indent=2))
 
         return response
+
+    def fetch_stored_workflows(self):
+        stored_workflows = []
+        workflow_runs = os.listdir(self.config.workflows_destination)
+        for run in workflow_runs:
+            if run.endswith(".json"):
+                print("loading {}".format(run))
+                with open("{}/{}".format(self.config.workflows_destination, run), "r") as file:
+                    try:
+                        read = file.read()
+                        content = json.loads(read)
+                        stored_workflows.append(content)
+                    except Exception as error:
+                        print("cannot load file {} {}".format(run, error))
+        return stored_workflows
