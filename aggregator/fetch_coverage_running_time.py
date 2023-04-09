@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 
-from config import Config
+from src.config import Config
 
 config = Config()
 
