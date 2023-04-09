@@ -1,18 +1,20 @@
+from slugify import slugify
 
 
 class Config:
     def __init__(self):
-        # self.user = "marabesi"
-        # self.repository = "social-publisher"
-        # self.workflow_file_name = "ci.yml"
-        # self.branch = "main"
-        # self.job_target = "Test and coverage"
-
         self.user = "marabesi"
-        self.repository = "tdd-anti-patterns-book"
-        self.workflow_file_name = "latex.yml"
+        self.repository = "social-publisher"
+        self.workflow_file_name = "ci.yml"
         self.branch = "main"
-        self.job_target = "Compile LaTeX document"
+        self.job_target = "Test and coverage"
+        self.job_target_folder = slugify(self.job_target)
+
+        # self.user = "marabesi"
+        # self.repository = "tdd-anti-patterns-book"
+        # self.workflow_file_name = "latex.yml"
+        # self.branch = "main"
+        # self.job_target = "Compile LaTeX document"
 
         # self.user = "marabesi"
         # self.repository = "jest-clipboard"
@@ -33,10 +35,10 @@ class Config:
         # self.job_target = "Coverage ✅"
 
         # workflows
-        self.workflows_destination = "output/workflows/" + self.user + "-" + self.repository
+        self.workflows_destination = "output/workflows/" + self.user + "-" + self.repository + "/" + self.workflow_file_name
 
         # jobs
-        self.jobs_destination = "output/jobs/" + self.user + "-" + self.repository
+        self.jobs_destination = "output/jobs/" + self.job_target_folder + "/" + self.user + "-" + self.repository
 
         # result
         self.result_destination = "output/" + self.user + "-" + self.repository + "-result.json"
