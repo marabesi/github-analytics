@@ -1,0 +1,116 @@
+{
+  "id": 5963754957,
+  "run_id": 2145170235,
+  "workflow_name": "Java CI",
+  "head_branch": "main",
+  "run_url": "https://api.github.com/repos/marabesi/social-publisher/actions/runs/2145170235",
+  "run_attempt": 1,
+  "node_id": "CR_kwDOGhYuhs8AAAABY3etzQ",
+  "head_sha": "ee14fe19bcc2f3e15dcfad43b3e574e25d3da427",
+  "url": "https://api.github.com/repos/marabesi/social-publisher/actions/jobs/5963754957",
+  "html_url": "https://github.com/marabesi/social-publisher/actions/runs/2145170235/jobs/3132248132",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2022-04-10T21:21:57Z",
+  "started_at": "2022-04-10T21:22:08Z",
+  "completed_at": "2022-04-10T21:22:56Z",
+  "name": "build",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2022-04-10T23:22:07.000+02:00",
+      "completed_at": "2022-04-10T23:22:10.000+02:00"
+    },
+    {
+      "name": "Run actions/checkout@v2",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2022-04-10T23:22:10.000+02:00",
+      "completed_at": "2022-04-10T23:22:11.000+02:00"
+    },
+    {
+      "name": "Set up JDK 11",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2022-04-10T23:22:12.000+02:00",
+      "completed_at": "2022-04-10T23:22:12.000+02:00"
+    },
+    {
+      "name": "Validate Gradle wrapper",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2022-04-10T23:22:12.000+02:00",
+      "completed_at": "2022-04-10T23:22:12.000+02:00"
+    },
+    {
+      "name": "Build with Gradle",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2022-04-10T23:22:12.000+02:00",
+      "completed_at": "2022-04-10T23:22:43.000+02:00"
+    },
+    {
+      "name": "Test",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2022-04-10T23:22:43.000+02:00",
+      "completed_at": "2022-04-10T23:22:53.000+02:00"
+    },
+    {
+      "name": "Post Test",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9,
+      "started_at": "2022-04-10T23:22:53.000+02:00",
+      "completed_at": "2022-04-10T23:22:53.000+02:00"
+    },
+    {
+      "name": "Post Build with Gradle",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 10,
+      "started_at": "2022-04-10T23:22:54.000+02:00",
+      "completed_at": "2022-04-10T23:22:54.000+02:00"
+    },
+    {
+      "name": "Post Set up JDK 11",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 11,
+      "started_at": "2022-04-10T23:22:54.000+02:00",
+      "completed_at": "2022-04-10T23:22:54.000+02:00"
+    },
+    {
+      "name": "Post Run actions/checkout@v2",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 12,
+      "started_at": "2022-04-10T23:22:56.000+02:00",
+      "completed_at": "2022-04-10T23:22:56.000+02:00"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13,
+      "started_at": "2022-04-10T23:22:54.000+02:00",
+      "completed_at": "2022-04-10T23:22:54.000+02:00"
+    }
+  ],
+  "check_run_url": "https://api.github.com/repos/marabesi/social-publisher/check-runs/5963754957",
+  "labels": [
+    "ubuntu-latest"
+  ],
+  "runner_id": 1,
+  "runner_name": "Hosted Agent",
+  "runner_group_id": 2,
+  "runner_group_name": "GitHub Actions"
+}

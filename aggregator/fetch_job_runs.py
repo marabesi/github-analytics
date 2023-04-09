@@ -2,11 +2,10 @@ import json
 import time
 import os
 
-from config import Config
-
 from dotenv import load_dotenv
 
-from github_client import Client
+from src.config import Config
+from src.data_source.github_client import Client
 
 load_dotenv()
 
