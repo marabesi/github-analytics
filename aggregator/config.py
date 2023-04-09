@@ -8,7 +8,6 @@ class Config:
         self.workflow_file_name = "ci.yml"
         self.branch = "main"
         self.job_target = "Test and coverage"
-        self.job_target_folder = slugify(self.job_target)
 
         # self.user = "marabesi"
         # self.repository = "tdd-anti-patterns-book"
@@ -34,11 +33,13 @@ class Config:
         # self.branch = "main"
         # self.job_target = "Coverage ✅"
 
+        self.job_target_folder = slugify(self.job_target)
+
         # workflows
         self.workflows_destination = "output/workflows/" + self.user + "-" + self.repository + "/" + self.workflow_file_name
 
         # jobs
-        self.jobs_destination = "output/jobs/" + self.job_target_folder + "/" + self.user + "-" + self.repository
+        self.jobs_destination = "output/jobs/" + self.workflow_file_name + "/" + self.job_target_folder + "/" + self.user + "-" + self.repository
 
         # result
         self.result_destination = "output/" + self.user + "-" + self.repository + "-result.json"
