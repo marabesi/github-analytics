@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2b667a5226ba4e49b09cdb792d225601)](https://app.codacy.com/gh/marabesi/github-stats-dashboard?utm_source=github.com&utm_medium=referral&utm_content=marabesi/github-stats-dashboard&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7d019659269c4c7c92459bbafd425774)](https://app.codacy.com/gh/marabesi/github-analytics/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Coverage Status](https://coveralls.io/repos/github/marabesi/github-stats-dashboard/badge.svg?branch=main)](https://coveralls.io/github/marabesi/github-stats-dashboard?branch=main)
 
 # Github stats dashboard
