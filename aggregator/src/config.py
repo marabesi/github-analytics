@@ -11,7 +11,7 @@ class Config:
         # # self.job_target = "Build with Gradle"
         # # self.job_target = "Test and coverage"
         self.filters = [
-            {'completed': "2023-01-20", 'condition': ">="}
+            {'completed_at': "2023-04-01T00:00:00.000+02:00"}
         ]
         self.sort = [
             {'completed': "asc"}
