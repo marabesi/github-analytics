@@ -11,7 +11,8 @@ class Config:
         # # self.job_target = "Build with Gradle"
         # # self.job_target = "Test and coverage"
         self.filters = [
-            {'completed_at': "2023-04-01T00:00:00.000+02:00"}
+            # {'field': "status", 'value': "completed", 'condition': "==", 'type': "Text"},
+            # {'field': "completed_at", 'value': ["2023-04-01", "2023-04-30"], 'condition': "IS_IN_BETWEEN", 'type': "DATETIME"},
         ]
         self.sort = [
             {'completed': "asc"}
@@ -23,11 +24,11 @@ class Config:
         # self.branch = "main"
         # self.job_target = "Compile LaTeX document"
 
-        self.user = "marabesi"
-        self.repository = "jest-clipboard"
-        self.workflow_file_name = "delivery.yml"
-        self.branch = "main"
-        self.job_target = "Run npm run coveralls"
+        # self.user = "marabesi"
+        # self.repository = "jest-clipboard"
+        # self.workflow_file_name = "delivery.yml"
+        # self.branch = "main"
+        # self.job_target = "Run npm run coveralls"
 
         # self.user = "marabesi"
         # self.repository = "git-bot-release"

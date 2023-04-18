@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 from src.config import Config
 from src.data_source.github_client import Client
@@ -25,6 +26,10 @@ class JobRepository:
                             steps.append(step)
                     except Exception as error:
                         print("cannot load file {}, {}".format(job, error))
+
+        if len(self.config.sort) > 0:
+            return sorted(steps, key=lambda x: datetime.strptime(x['completed_at'], "%Y-%m-%dT%H:%M:%S.%f%z"), reverse=True)
+
         return steps
 
     def fetch_job(self, workflow_run):
