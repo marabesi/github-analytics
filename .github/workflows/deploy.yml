@@ -5,7 +5,7 @@ on: [push]
 env:
   CI: true
   COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-  NODE_ENV: production
+  NODE_ENV: development
 
 jobs:
   build-and-deploy:
@@ -34,6 +34,7 @@ jobs:
 
       - name: Build 🔧
         env:
+          NODE_ENV: production
           PUBLIC_PATH: /github-stats-dashboard
         run: npm run build
 
